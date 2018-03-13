@@ -8,7 +8,7 @@ const connection     = require('./database/connection');
 const BookFactory    = require('./src/book/book-factory');
 const Searcher       = require('./src/search-services/searcher');
 const nunjucks       = require('nunjucks');
-const index = require('./routes/index');
+const index = require('./routes');
 
 const app   = express();
 
@@ -38,6 +38,6 @@ app.set('books.repo', new BookRepository(connection));
 app.set('book.searcher', new Searcher(connection, new BookFactory()));
 
 
-app.use('/', index);
+app.use(index.routerAPI);
 
 module.exports = app;

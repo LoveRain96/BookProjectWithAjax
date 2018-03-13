@@ -30,18 +30,9 @@ class BookController {
 
     search(request, response, next) {
         request.app.get('book.searcher').search(request.condition)
-            .then((foundBook) => response
-                .render('home.njk', {books: foundBook})
-            ).catch(next)
-    }
-    detail(request, response, next) {
-        request.app.get('book.searcher').search(request.condition)
-            .then((books) => {
-                if(!books.length) {
-                    throw  new Error('no book');
-                }
-                response.render('detail.njk', {book: books[0]})
-            }).catch(next)
+            .then((foundBook) => response.status(200)
+                .json(foundBook.map(result => result.toJson())))
+            .catch(next)
     }
 }
 
