@@ -58,6 +58,15 @@ class Publisher {
     setId(id) {
         this.id = id;
     }
+
+    toJson() {
+        return {
+            id       :this.getId(),
+            name     :this.getName(),
+            address  :this.getAddress(),
+            phone    :this.getPhone(),
+        }
+    }
 }
 
 module.exports = Publisher;

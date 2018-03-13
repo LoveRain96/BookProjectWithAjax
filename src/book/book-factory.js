@@ -1,5 +1,4 @@
 const Book      = require('./book');
-const Publisher = require('../publisher/publisher');
 const PublisherProvider = require('../publisher/publisher-provider');
 const connection    = require('../../database/connection');
 

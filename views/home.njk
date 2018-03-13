@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Books</title>
+</head>
+<body>
+<header>
+    <h1>List of Book</h1>
+</header>
+<nav>
+    <a href="/books">Home</a> |
+    <a href="#">Books</a> |
+    <a href="#">Publishers</a>
+</nav>
+<ul>
+    {% for book in books %}
+    <li>
+        <a href="/book/{{book.getId()}}">{{book.getTitle()}}</a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

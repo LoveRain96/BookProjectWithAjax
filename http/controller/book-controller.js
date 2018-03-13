@@ -23,15 +23,25 @@ class BookController {
     editBook(request, response) {
         let repo = request.app.get('books.repo');
         repo.edit(request.book).then(function () {
-            response.status(200).json({message:'Success'});
+            response.status(200).render('edit-book');
         });
     }
 
 
     search(request, response, next) {
         request.app.get('book.searcher').search(request.condition)
-            .then((results) => response.status(200).render('index', {books:results.map(result =>result.toJson())}))
-            .catch(next)
+            .then((foundBook) => response
+                .render('home.njk', {books: foundBook})
+            ).catch(next)
+    }
+    detail(request, response, next) {
+        request.app.get('book.searcher').search(request.condition)
+            .then((books) => {
+                if(!books.length) {
+                    throw  new Error('no book');
+                }
+                response.render('detail.njk', {book: books[0]})
+            }).catch(next)
     }
 }
 

@@ -7,11 +7,15 @@ const BookRepository = require('./src/book/book-repository');
 const connection     = require('./database/connection');
 const BookFactory    = require('./src/book/book-factory');
 const Searcher       = require('./src/search-services/searcher');
-
+const nunjucks       = require('nunjucks');
 const index = require('./routes/index');
 
 const app   = express();
 
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 
 app.set('views', path.join(__dirname, 'views'));
 

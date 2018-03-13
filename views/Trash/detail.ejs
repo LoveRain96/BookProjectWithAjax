@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>One-Punch-Man</title>
+</head>
+<body>
+    <header> <h1>Book name: <%=books[0].title%></h1> </header>
+    <nav>
+        <a href="/books">Home</a>
+        <a href="/">Books</a>
+        <a href="/">Publishers</a>
+    </nav>
+    <section>
+       <form method="post" action="/book/<%= books[0].id %>">
+           <label>Title:</label>
+           <input value="<%=books[0].title%>" name="title" title="title">
+           <label>Author:</label>
+           <input value="<%=books[0].author%>" name="author" title="author">
+           <label>Publisher name:</label>
+           <input value="<%=books[0].publisher.name%>" name="publisher" title="publisher">
+           <label>Price:</label>
+           <input value="<%=books[0].price%>" name="price" title="price">
+           <button class="btn btn-default" type="submit">SAVE</button>
+       </form>
+    </section>
+</body>
+</html>
