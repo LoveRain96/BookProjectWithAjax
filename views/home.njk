@@ -30,8 +30,11 @@
 <ul>
     {% for book in books %}
     <li>
-        <a href="/edit/{{book.getId()}}">{{book.getTitle()}}</a>
+        <label>{{book.getTitle()}}</label>
+        <a href="/edit/{{book.getId()}}">Edit</a> |
+        <a href="/books/{{book.getId()}}">Delete</a>
     </li>
+
     {% endfor %}
 </ul>
 </body>

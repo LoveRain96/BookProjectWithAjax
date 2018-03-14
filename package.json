@@ -20,5 +20,17 @@
     "pug": "2.0.0-beta11",
     "semantic-ui": "^2.3.0",
     "serve-favicon": "~2.4.5"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoveRain96/CRUDBOOK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LoveRain96/CRUDBOOK/issues"
+  },
+  "homepage": "https://github.com/LoveRain96/CRUDBOOK#readme",
+  "description": ""
 }

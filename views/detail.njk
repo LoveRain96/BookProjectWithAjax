@@ -7,17 +7,26 @@
     <ul>
         <li> <a href="/books">Home</a> </li>
     </ul>
-    <form action="/book/edit" method="post">
+    <form action="/update/{{book.getId()}}" method="post" role="form">
                 <lable for="title">Title:</lable>
                 <input type="text" name="title" id="title" value="{{book.getTitle()}}">
                 <lable for="author">Author:</lable>
-                <input type="text" name="title" id="author" value="{{book.getAuthor()}}">
-                <label for="publisher">Publisher:</label>
-                <select class="selectpicker">
+                <input type="text" name="author" id="author" value="{{book.getAuthor()}}">
+                <input type="text" name="author" id="id" value="{{book.getPublisher().getId()}}">
 
+                <label for="publisher">Publisher:</label>
+                <select id="publisher" name="publisher_id">
+                    {% for publisher in publishers %}
+                    {% if publisher.getId() === book.getPublisher().getId() %}
+                    <option value="{{publisher.getId()}}" selected>{{publisher.getId()}}</option>
+                    {% else %}
+                    <option value="{{publisher.getId()}}">{{publisher.getId()}}</option>
+                    {% endif %}
+                    {% endfor %}
                 </select>
                 <lable for="price">Price:</lable>
-                <input type="number" name="title" id="price" value="{{book.getPrice()}}">
+                <input type="number" name="price" id="price" value="{{book.getPrice()}}">
+                <button type="submit">Edit</button>
     </form>
     <small>
         {{book.getAuthor()}}

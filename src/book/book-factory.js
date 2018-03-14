@@ -13,8 +13,8 @@ class BookFactory{
      */
     makeFromDB(bookRaw) {
         let book  = new Book(bookRaw.title, bookRaw.author);
-        book.setId(bookRaw.id);
         book.setPrice(bookRaw.price);
+        book.setId(bookRaw.id);
         let publisher = publisherProvider.make(bookRaw);
         book.setPublisher(publisher);
         return book;

@@ -1,22 +1,40 @@
-const express = require('express');
-const router = express.Router();
-const BookController = require('../http/controller/book-api/book-controller');
-const check = require('../http/middlerware');
+const express                  = require('express');
+const router                   = express.Router();
+const BookController           = require('../app/controller/book/book-controller');
+const check                    = require('../app/middlerware');
+const IdSearchCondition        = require('../src/search-services/id-search-condition');
+const UndeletedSearchCondition = require('../src/search-services/undeleted-search-condition');
+const SearchAdvance            = require('../src/search-services/advance-search-condition');
+const SearchBasic              = require('../src/search-services/keyword-search-condition');
 
 let bookController = new BookController();
 
-router.get('/books', check.searchCondition, bookController.search);
+router.get('/books',function (req, res, next) {
+    req.condition = new UndeletedSearchCondition();
+    next();
+}, bookController.searchBook);
 
-router.get('/book/:id',check.searchCondition, bookController.search);
+router.get('/edit/:id',function (req, res, next) {
+    req.condition = new IdSearchCondition(req.params.id);
+    next();
+},bookController.renderBookEdit);
 
-router.post('/book', check.bookRequest, check.checkNull, check.checkLength, bookController.createBook);
+router.get('/add', bookController.renderBook);
 
-router.put('/book/:id', check.bookRequest, check.checkNull, check.checkLength, bookController.editBook);
+router.get('/books/:id', bookController.deleteBook);
 
-router.delete('/book/:id', bookController.deleteBook);
+router.post('/book', check.bookRequest, bookController.createBook);
 
-router.get('/search-advance', check.searchCondition, bookController.search);
+router.post('/update/:id', check.bookRequest, bookController.updateBook);
 
-router.get('/search-basic', check.searchCondition, bookController.search);
+router.get('/search-advance',function (req, res, next) {
+    req.condition = new SearchAdvance(req.query.title, req.query.author ,req.query.publisher );
+    next();
+}, bookController.searchBook);
+
+router.get('/search-basic', function (req, res, next) {
+    req.condition = new SearchBasic(req.query.keyword);
+    next();
+}, bookController.searchBook);
 
 module.exports = router;

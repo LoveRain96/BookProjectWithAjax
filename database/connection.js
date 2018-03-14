@@ -7,7 +7,6 @@ const connection = require('knex')({
         password : process.env.DB_PASS,
         database : process.env.DB_DATA
     },
-    useNullAsDefault: true
 });
 
 module.exports = connection;

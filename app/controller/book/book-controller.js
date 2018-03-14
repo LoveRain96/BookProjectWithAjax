@@ -12,7 +12,7 @@ class BookController {
             ).catch(next)
     }
 
-    detail(request, response, next) {
+   /* detail(request, response, next) {
         request.app.get('book.searcher').search(request.condition)
             .then((books) => {
                 if (!books.length) {
@@ -21,7 +21,7 @@ class BookController {
                 response.render('detail.njk', {book: books[0]})
             }).catch(next)
     }
-
+*/
     renderBook(request, response, next) {
         let publisherProvider = new PublisherProvider(Connection);
         publisherProvider.allPublisher()
@@ -29,12 +29,35 @@ class BookController {
             .catch(next)
     }
 
-/*    createBook(request, response, next) {
+    renderBookEdit(request, response, next) {
+        let publisherProvider = new PublisherProvider(Connection);
+        publisherProvider.allPublisher().then(publishers => {
+            request.app.get('book.searcher').search(request.condition).then(books => {
+                response.render('detail.njk', {book : books[0], publishers :publishers})
+            })
+        }).catch(next)
+
+    }
+
+    updateBook(request, response, next) {
+        let repo = request.app.get('books.repo');
+        repo.edit(request.book).then(function () {
+            response.json({message :'success'})
+        }).catch(next)
+    }
+
+    deleteBook(request, response, next) {
+        let repo = request.app.get('books.repo');
+        repo.remove(request.params.id).then(function () {
+            response.render('home.njk');
+        }).catch(next);
+    }
+    createBook(request, response, next) {
         let repo = request.app.get('books.repo');
         repo.add(request.book)
-            .then(function (book) {
-                response.render('add-new.njk', {book: book});
+            .then(function () {
+                response.render('home.njk');
             }).catch(next)
-    }*/
+    }
 }
 module.exports = BookController;

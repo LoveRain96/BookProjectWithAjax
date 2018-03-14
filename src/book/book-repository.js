@@ -22,10 +22,7 @@ class BookRepository{
             author: book.getAuthor(),
             publisher_id: book.getPublisher().getId() ,
             price: book.getPrice()
-        }).then(function (insertedId) {
-            book.setId(insertedId[0]);
-            return book;
-        });
+        })
     }
 
     /**

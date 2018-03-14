@@ -1,24 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const BookController = require('../http/controller/book/book-controller');
-const check = require('../http/middlerware');
-const IdSearchCondition = require('../src/search-services/id-search-condition');
+const BookController = require('../app/controller/api/book-controller');
+const check = require('../app/middlerware');
 
 let bookController = new BookController();
 
-router.get('/books', check.searchCondition, bookController.searchBook);
+router.get('/books', check.searchCondition, bookController.search);
 
-router.get('/edit/:id',function (req, res, next) {
-    req.condition = new IdSearchCondition(req.params.id);
-    next();
-},bookController.detail);
+router.get('/book/:id',check.searchCondition, bookController.search);
 
-router.get('/add', bookController.renderBook);
+router.post('/book', check.bookRequest, check.checkNull, check.checkLength, bookController.createBook);
 
-//router.post('/book', bookController.createBook);
+router.put('/book/:id', check.bookRequest, check.checkNull, check.checkLength, bookController.editBook);
 
-router.get('/search-advance', check.searchCondition, bookController.searchBook);
+router.delete('/book/:id', bookController.deleteBook);
 
-router.get('/search-basic', check.searchCondition, bookController.searchBook);
+router.get('/search-advance', check.searchCondition, bookController.search);
+
+router.get('/search-basic', check.searchCondition, bookController.search);
 
 module.exports = router;
