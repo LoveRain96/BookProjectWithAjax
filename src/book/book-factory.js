@@ -1,9 +1,9 @@
-const Book      = require('./book');
+const Book              = require('./book');
 const PublisherProvider = require('../publisher/publisher-provider');
-const connection    = require('../../database/connection');
+const connection        = require('../../database/connection');
+const Publisher         = require('../../src/publisher/publisher');
 
 let publisherProvider = new PublisherProvider(connection);
-
 class BookFactory{
 
     /**
@@ -15,7 +15,10 @@ class BookFactory{
         let book  = new Book(bookRaw.title, bookRaw.author);
         book.setPrice(bookRaw.price);
         book.setId(bookRaw.id);
-        let publisher = publisherProvider.make(bookRaw);
+        let publisher = new Publisher (bookRaw.name);
+        publisher.setAddress(bookRaw.address);
+        publisher.setId(bookRaw.publisher_id);
+        publisher.setPhone(bookRaw.phone);
         book.setPublisher(publisher);
         return book;
     }

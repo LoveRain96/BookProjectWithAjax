@@ -1,9 +1,5 @@
 class BookController {
 
-    constructor() {
-
-    }
-
     createBook(request, response, next) {
         let repo = request.app.get('books.repo');
         repo.add(request.book).then(function (result) {

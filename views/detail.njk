@@ -12,8 +12,6 @@
                 <input type="text" name="title" id="title" value="{{book.getTitle()}}">
                 <lable for="author">Author:</lable>
                 <input type="text" name="author" id="author" value="{{book.getAuthor()}}">
-                <input type="text" name="author" id="id" value="{{book.getPublisher().getId()}}">
-
                 <label for="publisher">Publisher:</label>
                 <select id="publisher" name="publisher_id">
                     {% for publisher in publishers %}
@@ -27,12 +25,7 @@
                 <lable for="price">Price:</lable>
                 <input type="number" name="price" id="price" value="{{book.getPrice()}}">
                 <button type="submit">Edit</button>
+
     </form>
-    <small>
-        {{book.getAuthor()}}
-    </small>
-    <small>
-        {{book.getPublisher().getName()}}
-    </small>
 </body>
 </html>

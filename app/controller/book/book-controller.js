@@ -1,10 +1,7 @@
 const PublisherProvider = require('../../../src/publisher/publisher-provider');
 const Connection        = require('../../../database/connection');
+
 class BookController {
-
-    constructor() {
-
-    }
 
     searchBook(request, response, next) {
         request.app.get('book.searcher').search(request.condition)
@@ -42,21 +39,21 @@ class BookController {
     updateBook(request, response, next) {
         let repo = request.app.get('books.repo');
         repo.edit(request.book).then(function () {
-            response.json({message :'success'})
+            response.redirect('/books');
         }).catch(next)
     }
 
     deleteBook(request, response, next) {
         let repo = request.app.get('books.repo');
         repo.remove(request.params.id).then(function () {
-            response.render('home.njk');
+            response.redirect('/books');
         }).catch(next);
     }
     createBook(request, response, next) {
         let repo = request.app.get('books.repo');
         repo.add(request.book)
             .then(function () {
-                response.render('home.njk');
+                response.redirect('/books');
             }).catch(next)
     }
 }

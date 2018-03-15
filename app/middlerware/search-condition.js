@@ -2,7 +2,7 @@ const AdvanceSearchCondition   = require('../../src/search-services/advance-sear
 const KeywordSearchCondition   = require('../../src/search-services/keyword-search-condition');
 const UndeletedSearchCondition = require('../../src/search-services/undeleted-search-condition');
 const IdSearchCondition        = require('../../src/search-services/id-search-condition');
-//const SearchPublisher          = require('../../src/search-services/search-publisher');
+
 
 module.exports = (req, res, next) => {
     req.condition = makeCondition(req);
