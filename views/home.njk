@@ -1,6 +1,81 @@
 <html>
 <head>
     <title>Books</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function features(url, method, data) {
+                return $.ajax({
+                    url: url,
+                    method : method,
+                    data   : data
+                })
+            }
+            $("#add-new").click(function () {
+                $("#Create").show()
+            });
+            $("#post").click(function () {
+                features('/book', 'POST',{
+                    title  : $("#title").val(),
+                    author : $("#author").val(),
+                    publisher_id : $("#publisher_id").val(),
+                    price : $("#price").val(),
+                })
+            });
+            $("#edit").click(function () {
+                features('/update',"PUT",{
+                    id : $("#id").val(),
+                    title  : $("#title").val(),
+                    author : $("#author").val(),
+                    publisher_id : $("#publisher_id").val(),
+                    price : $("#price").val(),
+                }).then(value => {
+                    console.log(value);
+                })
+            });
+            $("#delete").click(function () {
+                features('/delete',"DELETE",{
+                    id : $("#id").val(),
+                }).then(value => {
+                    console.log(value);
+                })
+            });
+            $("#get").click(function () {
+                features('/books',"GET").then(value => {
+                    console.log(value)
+                    //console.log(value[0].title);
+                })
+            });
+            $("#search-basic").click(function () {
+                features('/search-basic', "GET", {
+                    keyword : $("#keyword").val()
+                }).then(value =>{
+                    console.log(value);
+                })
+            });
+            $("#search-advance").click(function () {
+                features('/search-advance', "GET", {
+                    title : $("#title").val(),
+                    author : $("#author").val(),
+                    publisher: $("#publisherName").val()
+                }).then(value =>{
+                    console.log(value);
+                })
+            });
+            $('#title').keyup(function () {
+                features("/search-title", 'get', {
+                    title : $("#title").val()
+                }).then(function (data) {
+                    if (!data.length){
+                        $('p').text("");
+                    }else {
+                        $('p').text("Title Already Taken !");
+                    }
+                    console.log(data);
+                })
+            });
+        })
+    </script>
 </head>
 <body>
 <header>
@@ -9,14 +84,14 @@
 <nav>
     <ul>
         <a href="/books">Home</a> |
-        <a href="#">Publishers</a> |
-        <a href="/add">Add Book</a>
+        <a href="/add">ADD </a>
     </ul>
     <form action="/search-basic" method="get" role="form">
         <div class="input-group">
-            <input type="text" name="keyword" placeholder="Search for...">
-            <button class="btn btn-default" type="submit">Search</button>
+            <input type="text"  name="keyword" id="autocomplete" placeholder="Search for...">
+            <button class="btn btn-default" id="get" type="submit">Search</button>
         </div>
+            <p id="result">blabla</p>
     </form>
     <form action="/search-advance" method="get" role="form">
         <div class="form-group">
@@ -26,6 +101,7 @@
             <button type="submit" class="btn btn-default">Search</button>
         </div>
     </form>
+
 </nav>
 <ul>
     {% for book in books %}

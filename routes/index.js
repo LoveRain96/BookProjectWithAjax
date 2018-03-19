@@ -1,2 +1,2 @@
-exports.router = require('./router-api');
-exports.routerAPI = require('./router');
+exports.routerAPI = require('./router-api');
+exports.router    = require('./router');

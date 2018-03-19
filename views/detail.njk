@@ -1,6 +1,29 @@
 <html>
 <head>
     <title></title>
+    <script>
+        $(document).ready(function () {
+            $("#edit").click(function () {
+                ajax("/update", "PUT", {
+                    id : $("#id").val(),
+                    title  : $("#title").val(),
+                    author : $("#author").val(),
+                    publisher_id : $("#publisher_id").val(),
+                    price : $("#price").val(),
+                }).then(value => {
+                    console.log(value);
+                })
+            })
+        });
+        function ajax(url, method, data) {
+            return $.ajax({
+                url : url,
+                method : method,
+                data : data
+            })
+        }
+        
+    </script>
 </head>
 <body>
     <h1>{{book.getTitle()}}</h1>
@@ -24,8 +47,8 @@
                 </select>
                 <lable for="price">Price:</lable>
                 <input type="number" name="price" id="price" value="{{book.getPrice()}}">
-                <button type="submit">Edit</button>
-
+                <button id="#edit">Edit</button>
+                <input id="id" placeholder="Id...">
     </form>
 </body>
 </html>

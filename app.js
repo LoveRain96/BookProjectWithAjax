@@ -28,7 +28,7 @@ app.set('books.repo', new BookRepository(connection));
 app.set('book.searcher', new Searcher(connection, new BookFactory()));
 
 
-app.use(index.routerAPI);
+app.use(index.router);
 
 app.listen(8080,function () {
     console.log("Running port 8080")
